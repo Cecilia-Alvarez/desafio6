@@ -1,0 +1,12 @@
+h1 {
+    color: rgba(32, 11, 99, 0.884);
+}
+
+label {
+    font-weight: bold;
+    font-style: italic;
+}
+
+.jumbotron {
+    min-height: 100vh;
+}
