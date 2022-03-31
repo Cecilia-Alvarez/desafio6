@@ -13,12 +13,12 @@ formAgregarProducto.addEventListener('submit', e => {
 })
 
 socket.on('productos', productos => {
-    makeHtmlTable(productos).then(html => {
+    displayTable(productos).then(html => {
         document.getElementById('productos').innerHTML = html
     })
 });
 
-function makeHtmlTable(productos) {
+function displayTable(productos) {
     return fetch('plantillas/tabla-productos.hbs')
         .then(respuesta => respuesta.text())
         .then(plantilla => {
@@ -44,16 +44,16 @@ formPublicarMensaje.addEventListener('submit', e => {
 
 socket.on('mensajes', mensajes => {
     console.log(mensajes);
-    const html = makeHtmlList(mensajes)
+    const html = renderMessages(mensajes)
     document.getElementById('mensajes').innerHTML = html;
 })
 
-function makeHtmlList(mensajes) {
+function renderMessages(mensajes) {
     return mensajes.map(mensaje => {
         return (`
             <div>
-                <b style="color:blue;">${mensaje.autor}</b>
-                [<span style="color:brown;">${mensaje.fyh}</span>] :
+                <b style="color:red;">${mensaje.autor}</b>
+                [<span style="color:blue;">${mensaje.fyh}</span>] :
                 <i style="color:green;">${mensaje.texto}</i>
             </div>
         `)
@@ -61,13 +61,13 @@ function makeHtmlList(mensajes) {
 }
 
 inputUsername.addEventListener('input', () => {
-    const hayEmail = inputUsername.value.length
-    const hayTexto = inputMensaje.value.length
-    inputMensaje.disabled = !hayEmail
-    btnEnviar.disabled = !hayEmail || !hayTexto
+    const correoElectronico = inputUsername.value.length
+    const textoMensaje = inputMensaje.value.length
+    inputMensaje.disabled = !correoElectronico
+    btnEnviar.disabled = !correoElectronico || !textoMensaje
 })
 
 inputMensaje.addEventListener('input', () => {
-    const hayTexto = inputMensaje.value.length
-    btnEnviar.disabled = !hayTexto
+    const textoMensaje = inputMensaje.value.length
+    btnEnviar.disabled = !textoMensaje
 })
