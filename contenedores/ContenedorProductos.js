@@ -11,7 +11,7 @@ class ContenedorProductos {
             const products = await fs.readFile(this.ruta, 'utf-8')
             return JSON.parse(products)
         } catch (error) {
-            return []
+            console.log("No se pudo leer el archivo.");
         }
     }
 
