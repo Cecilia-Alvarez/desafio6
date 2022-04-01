@@ -8,28 +8,28 @@ class ContenedorProductos {
 
     async displayAll() {
         try {
-            const objects = await fs.readFile(this.ruta, 'utf-8')
-            return JSON.parse(objects)
+            const products = await fs.readFile(this.ruta, 'utf-8')
+            return JSON.parse(products)
         } catch (error) {
             return []
         }
     }
 
-    async saveAll(object) {
-        const objects = await this.displayAll()
+    async saveAll(product) {
+        const products = await this.displayAll()
 
         let newId
-        if (objects.length == 0) {
+        if (products.length == 0) {
             newId = 1
         } else {
-            newId = objects[objects.length - 1].id + 1
+            newId = products[products.length - 1].id + 1
         }
 
-        const newObject = { ...object, id: newId }
-        objects.push(newObject)
+        const newProduct = { ...product, id: newId }
+        products.push(newProduct)
 
         try {
-            await fs.writeFile(this.ruta, JSON.stringify(objects, null, 2))
+            await fs.writeFile(this.ruta, JSON.stringify(products, null, 2))
             return newId
         } catch (error) {
             throw new Error(`Error al guardar: ${error}`)
